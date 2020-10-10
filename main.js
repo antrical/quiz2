@@ -1,10 +1,7 @@
 document.addEventListener("DOMContentLoaded", function (e) {
     document.getElementById("btn").addEventListener("click", function () {
 
-
-
-
-        fetch('https://quizapi.io/api/v1/questions?apiKey=Ol8s0X2iWFe8w6p1L7Nckl9qM99YVH1mab9gjH3E&category=code&limit=2&tags=JavaScript')
+        fetch('https://quizapi.io/api/v1/questions?apiKey=Ol8s0X2iWFe8w6p1L7Nckl9qM99YVH1mab9gjH3E&category=code&limit=10&tags=JavaScript')
             .then(response => response.json())
             .then(data => {
                 let quizIndex = new quizQuestion(data); // nytt objekt
@@ -29,10 +26,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 
             printQuestion() {
-                for (let i = 0; i < this.questionObjects.length; i++) {  // <----------------------------Byt till att loopa igenom antalet frågor i question objects listan
+                for (let i = 0; i < this.questionObjects.length; i++) {  // loopar igenom antalet frågor i question objects listan i class quizQuestion
                     let questionObject = this.questionObjects[i] // 
-                    console.log("--------------------- ");
-                    console.log(questionObject);
+                    //console.log("--------------------- ");
+                  //  console.log(questionObject);
                     let P = document.createElement('p')
                     P.append(questionObject.question)
 
@@ -42,11 +39,15 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     // let answers = this.answer_arr[i];
                     //console.log(answers);//här får jag mina svar under frågan 
 
-                    console.log("Question: " + questionObject.question)
+                   // console.log("Question: " + questionObject.question)
                     for (const answer in questionObject.answers) {
-                        if (questionObject.answers.hasOwnProperty(answer)) {
+                        let xNull = questionObject.answers[answer];
+                        if (xNull !== null) {
+
+                        
+                        (questionObject.answers.hasOwnProperty(answer)) 
                             const answerValue = questionObject.answers[answer];
-                            console.log("answer: " + answerValue);
+                           // console.log("answer: " + answerValue);
                             let tr = document.createElement('tr');
 
                             bd.append(tr)
@@ -55,8 +56,16 @@ document.addEventListener("DOMContentLoaded", function (e) {
                             checkB.setAttribute('type', 'checkbox');
 
                             tr.append(checkB)
-
                             tr.append(answerValue)
+
+                            let questionId = answer;
+                            console.log(questionId);
+
+                            checkB.id = answer; // sätter id för att kunna sortera mina checkboxes
+
+
+                            
+                        }
 
 
 
@@ -82,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 
 
-    });// end of DOM event
+    );// end of DOM event
 
 
 
