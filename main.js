@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             .then(data => {
                 let quizIndex = new quizQuestion(data); // nytt objekt
                 quizIndex.printQuestion() // lägga in i egen funktion 
-                quizIndex.submit()
+                //quizIndex.submit()
 
             });
 
@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 this.questionObjects = data; //Hela questonojketet i en lista
                 console.log("this.questionObjects");
                 console.log(this.questionObjects);
+
+                //GÖR SÅ ATT SUBMITBUTTON METODEN ÄR AKTIV SÅ FORT KONSTRUKTORN KÖRS
+                this.submitButton();
 
             }
 
@@ -80,7 +83,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
             }
 
+            
+
             submit () {
+                console.log("submitbutton klick!!");
                 let currentQuestionArr = []; //min stora array som tar in true, false 
                 let inputArray = []; //hit pushar jag mina 10 st array med true, false svar
                 let inputAnswer = document.querySelectorAll('input[type="checkbox"]'); //LISTA
@@ -105,15 +111,24 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     
 
                    ////////TO DO
-                    // Koppla min submit till en knapp, checka om ikryssad checkbox blir true
                     // Checka min lista inputArray mot en annan lista som har correct_answers 
 
                 }
 
-
+                
                   console.log(inputArray);
             
             }
+
+            //NU KÖRS SUBMIT METODEN NÄR MAN KLICKAR PÅ SUBMIT KNAPPEN
+            submitButton() {
+                let submitButton = document.getElementById("submit");
+                submitButton.addEventListener("click", () => {
+                    this.submit();
+                })
+            }
+
+
 
 
         }
