@@ -3,9 +3,9 @@ class Player {
     constructor(name) {
         
         this.name = name;
-        this.points = 0; //this.value?
+        this.points = 0; 
         
     }
     addPoint(point) { 
-        
+
     }};

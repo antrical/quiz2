@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", function (e) {
 
     document.getElementById("btn").addEventListener("click", function () {
-       
+
+        let name = document.getElementById('name');
+        name2 = name.value;
+        bd.append(name2 + " spelar en omgång");
+
 
 
 
@@ -17,14 +21,11 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         class quizQuestion {
             constructor(data) {
-                console.log("data: ");
-                // console.log(data);
-            
                 this.questionObjects = data; //Hela questonojketet i en lista
                 console.log("this.questionObjects");
                 console.log(this.questionObjects);
 
-                //GÖR SÅ ATT SUBMITBUTTON METODEN ÄR AKTIV SÅ FORT KONSTRUKTORN KÖRS
+                //Gör så att submitbutton metoden är aktiv så fort konstruktorn körs
                 this.submitButton();
 
             }
@@ -39,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     P.append(questionObject.question)
 
                     // console.log(question)
-                    document.getElementById("bd").append(P)  //lägger in mina svar i diven (P)
+                    document.getElementById("bd").append(P)
 
                     // let answers = this.answer_arr[i];
                     //console.log(answers);//här får jag mina svar under frågan 
@@ -51,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                         if (xNull !== null) {
 
 
-                           // (questionObject.answers.hasOwnProperty(answer))
+                            // (questionObject.answers.hasOwnProperty(answer))
                             const answerValue = questionObject.answers[answer];
                             // console.log("answer: " + answerValue);
                             let tr = document.createElement('tr');
@@ -64,8 +65,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
                             tr.append(checkB)
                             tr.append(answerValue)
 
-                            let questionId = answer;
-                            console.log(questionId);
+                            //let questionId = answer;
+                            //console.log(questionId);
 
                             checkB.id = answer; // sätter id för att kunna sortera mina checkboxes
                             //checkB.value = answer;
@@ -74,53 +75,54 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
                         }
 
-                
+
 
                     }
 
-                 
+
                 }
 
             }
 
-            
 
-            submit () {
+
+            submit() {
                 console.log("submitbutton klick!!");
                 let currentQuestionArr = []; //min stora array som tar in true, false 
                 let inputArray = []; //hit pushar jag mina 10 st array med true, false svar
                 let inputAnswer = document.querySelectorAll('input[type="checkbox"]'); //LISTA
-                for (let i = 0; i < inputAnswer.length; i++) { 
-                    if (i == inputAnswer.length-1){ // problemet innan fick endast 9 array av 10 (fullösning)
-                        currentQuestionArr.push(inputAnswer[i].checked) 
+                for (let i = 0; i < inputAnswer.length; i++) {
+                    if (i == inputAnswer.length - 1) { // problemet innan fick endast 9 array av 10 (fullösning)
+                        currentQuestionArr.push(inputAnswer[i].checked)
                         inputArray.push(currentQuestionArr)
                     }
-                   else if (inputAnswer[i].id === "answer_a") { // varje gång det blir answer_a ska det tömmas och börja på nästa 
-                        if (currentQuestionArr.length > 0 ){ 
+                    else if (inputAnswer[i].id === "answer_a") { // varje gång det blir answer_a ska det tömmas och börja på nästa 
+                        if (currentQuestionArr.length > 0) {
                             inputArray.push(currentQuestionArr)
                             currentQuestionArr = [] //Pusha in både true och false i tomma arrayen
-                       }
+                        }
                         currentQuestionArr.push(inputAnswer[i].checked)
 
                     }
                     else {
                         currentQuestionArr.push(inputAnswer[i].checked)
 
-                    
-                    }
-                    
 
-                   ////////TO DO
+                    }
+
+                    ////////TO DO
                     // Checka min lista inputArray mot en annan lista som har correct_answers 
 
                 }
 
-                
-                  console.log(inputArray);
-            
+
+                console.log(inputArray);
+
             }
 
-            //NU KÖRS SUBMIT METODEN NÄR MAN KLICKAR PÅ SUBMIT KNAPPEN
+            // DENNA METOD KÖRS DIREKT NÄR CONSTRUCTORN KÖRS SÅ ATT
+            // KNAPPEN FÅR EN EVENTLYSSNARE DIREKT
+
             submitButton() {
                 let submitButton = document.getElementById("submit");
                 submitButton.addEventListener("click", () => {
@@ -133,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         }
 
-       
+
 
     }
 
