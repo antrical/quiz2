@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         let name = document.getElementById('name');
         name2 = name.value;
-        bd.append(name2 + " spelar en omgång");
+        div.append(name2 + " spelar en omgång!");
 
 
 
@@ -21,12 +21,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         class quizQuestion {
             constructor(data) {
-                this.questionObjects = data; //Hela questonojketet i en lista
+                this.questionObjects = data; //Hela questonojketet i en lista // här hämtar jag all data som jag behöver 
+                this.correct_ans
+                this.inputArray
+                this.submitButton(); // För att sbmbutton metoden ska var aktiv så fort konstruktorn körs
+
                 console.log("this.questionObjects");
                 console.log(this.questionObjects);
-
-                //Gör så att submitbutton metoden är aktiv så fort konstruktorn körs
-                this.submitButton();
 
             }
 
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     P.append(questionObject.question)
 
                     // console.log(question)
-                    document.getElementById("bd").append(P)
+                    document.getElementById("div").append(P)
 
                     // let answers = this.answer_arr[i];
                     //console.log(answers);//här får jag mina svar under frågan 
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                             // console.log("answer: " + answerValue);
                             let tr = document.createElement('tr');
 
-                            bd.append(tr)
+                            div.append(tr)
 
                             let checkB = document.createElement('INPUT');
                             checkB.setAttribute('type', 'checkbox');
@@ -85,21 +86,21 @@ document.addEventListener("DOMContentLoaded", function (e) {
             }
 
 
-
-            submit() {
+            submit() { // Loopar igenom checkbox-elementen och pushar dem till currentQuestionArr 
                 console.log("submitbutton klick!!");
                 let currentQuestionArr = []; //min stora array som tar in true, false 
-                let inputArray = []; //hit pushar jag mina 10 st array med true, false svar
+                let inputArray = []; //Skapar arrayen som ska innehålla 10 array
+                let correct_ans = [];
                 let inputAnswer = document.querySelectorAll('input[type="checkbox"]'); //LISTA
                 for (let i = 0; i < inputAnswer.length; i++) {
-                    if (i == inputAnswer.length - 1) { // problemet innan fick endast 9 array av 10 (fullösning)
+                    if (i == inputAnswer.length - 1) { // problemet innan fick endast 9 array av 10 (ful lösning)
                         currentQuestionArr.push(inputAnswer[i].checked)
                         inputArray.push(currentQuestionArr)
                     }
-                    else if (inputAnswer[i].id === "answer_a") { // varje gång det blir answer_a ska det tömmas och börja på nästa 
+                    else if (inputAnswer[i].id === "answer_a") { // Varje gång det blir answer_a fortsätter det till en ny fråga
                         if (currentQuestionArr.length > 0) {
                             inputArray.push(currentQuestionArr)
-                            currentQuestionArr = [] //Pusha in både true och false i tomma arrayen
+                            currentQuestionArr = [] //Pushar in både true och false i tomma arrayen
                         }
                         currentQuestionArr.push(inputAnswer[i].checked)
 
@@ -110,15 +111,31 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
                     }
 
-                    ////////TO DO
-                    // Checka min lista inputArray mot en annan lista som har correct_answers 
 
                 }
 
 
+                ////////TO DO
+                // Checka min lista inputArray mot correct_anss - rättning 
+                //map funktion?
+                //starta nytt spel
+                
+                //nedan körs för att få fram correct_answers --> facit 
+
+                for (let i = 0; i < inputArray.length; i++) {
+                    correct_ans.push((Object.values(this.questionObjects[i].correct_answers)))
+
+                }
+
                 console.log(inputArray);
 
+                console.log(correct_ans);
+
+
+
+
             }
+            
 
             // DENNA METOD KÖRS DIREKT NÄR CONSTRUCTORN KÖRS SÅ ATT
             // KNAPPEN FÅR EN EVENTLYSSNARE DIREKT
@@ -130,7 +147,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 })
             }
 
-
+///GÖRA FILTER OCH skapa en poäng klass, ropa på lilla klassen för att ge poäng
+// quizIndex.correct_answers för att nå ? 
 
 
         }

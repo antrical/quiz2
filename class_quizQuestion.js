@@ -1,4 +1,4 @@
-class quizQuestion {
+class QuizQuestion {
     constructor(data) {
         this.questionObjects = data; //Hela questonojketet i en lista
         this.correct_ans
