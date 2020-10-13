@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 let quizIndex = new quizQuestion(data); // nytt objekt
                 quizIndex.printQuestion() // lägga in i egen funktion 
                 //quizIndex.submit()
+                quizIndex.correct()
 
             });
 
@@ -22,12 +23,15 @@ document.addEventListener("DOMContentLoaded", function (e) {
         class quizQuestion {
             constructor(data) {
                 this.questionObjects = data; //Hela questonojketet i en lista // här hämtar jag all data som jag behöver 
-                this.correct_ans
-                this.inputArray
+                this.correct_ans = [];
+                this.inputArray = [];
+                this.player = new Player()
+                // this.filterMyArr();
                 this.submitButton(); // För att sbmbutton metoden ska var aktiv så fort konstruktorn körs
 
                 console.log("this.questionObjects");
                 console.log(this.questionObjects);
+                ;
 
             }
 
@@ -50,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     // console.log("Question: " + questionObject.question)
                     for (const answer in questionObject.answers) { //answer = key
                         let xNull = questionObject.answers[answer];
-                        if (xNull !== null) {
+                        if (xNull !== null) { //göra en filter array för att få bort null
 
 
                             // (questionObject.answers.hasOwnProperty(answer))
@@ -72,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                             checkB.id = answer; // sätter id för att kunna sortera mina checkboxes
                             //checkB.value = answer;
 
-
+                            //console.log(inputArray);
 
                         }
 
@@ -89,17 +93,17 @@ document.addEventListener("DOMContentLoaded", function (e) {
             submit() { // Loopar igenom checkbox-elementen och pushar dem till currentQuestionArr 
                 console.log("submitbutton klick!!");
                 let currentQuestionArr = []; //min stora array som tar in true, false 
-                let inputArray = []; //Skapar arrayen som ska innehålla 10 array
-                let correct_ans = [];
+                // let inputArray = []; //Skapar arrayen som ska innehålla 10 array
+                // let correct_ans = [];
                 let inputAnswer = document.querySelectorAll('input[type="checkbox"]'); //LISTA
                 for (let i = 0; i < inputAnswer.length; i++) {
                     if (i == inputAnswer.length - 1) { // problemet innan fick endast 9 array av 10 (ful lösning)
                         currentQuestionArr.push(inputAnswer[i].checked)
-                        inputArray.push(currentQuestionArr)
+                        this.inputArray.push(currentQuestionArr)
                     }
                     else if (inputAnswer[i].id === "answer_a") { // Varje gång det blir answer_a fortsätter det till en ny fråga
                         if (currentQuestionArr.length > 0) {
-                            inputArray.push(currentQuestionArr)
+                            this.inputArray.push(currentQuestionArr)
                             currentQuestionArr = [] //Pushar in både true och false i tomma arrayen
                         }
                         currentQuestionArr.push(inputAnswer[i].checked)
@@ -119,23 +123,90 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 // Checka min lista inputArray mot correct_anss - rättning 
                 //map funktion?
                 //starta nytt spel
-                
+
                 //nedan körs för att få fram correct_answers --> facit 
 
-                for (let i = 0; i < inputArray.length; i++) {
-                    correct_ans.push((Object.values(this.questionObjects[i].correct_answers)))
+                for (let i = 0; i < this.inputArray.length; i++) {
+                    this.correct_ans.push((Object.values(this.questionObjects[i].correct_answers)))
 
                 }
 
-                console.log(inputArray);
+                /*  for(let i =0; i< inputArray.lenght; i++) {
+                  let array = */  //Försök att skapa en loop som loopar igenom varje svar i min array och köra filter, för att få ut index true
 
-                console.log(correct_ans);
+
+                //}
+
+
+
+                console.log(this.inputArray);
+
+                console.log(this.correct_ans);
+
 
 
 
 
             }
-            
+
+
+            correct() {
+                let newInputArray = [];
+
+                for (let i = 0; i < this.inputArray.length; i++) {
+
+                    this.inputArray[i].filter((curr_value, index) => {
+                        //console.log(curr_value);
+
+                        if (curr_value === true) {
+                            newInputArray.push(index);
+
+                        }
+                        else
+                            console.log("hej");
+                    }
+
+                    )
+
+
+                }
+                let newCorrect_ans = []
+                for (let i = 0; i < this.correct_ans.length; i++) {
+
+                    this.correct_ans[i].filter((curr_value, index) => {
+
+
+                        if (curr_value === "true") {
+                            newCorrect_ans.push(index);
+
+                        }
+                        else
+                            console.log("hejdå");
+                    }
+
+                    )
+                    if(newInputArray[i] === newCorrect_ans[i]) {
+                        this.player.addPoint()
+
+                }
+
+                
+
+                }
+                
+                console.log(this.player);
+                console.log(newInputArray);
+                console.log(newCorrect_ans);
+                
+
+            }
+
+
+
+
+
+
+
 
             // DENNA METOD KÖRS DIREKT NÄR CONSTRUCTORN KÖRS SÅ ATT
             // KNAPPEN FÅR EN EVENTLYSSNARE DIREKT
@@ -144,11 +215,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 let submitButton = document.getElementById("submit");
                 submitButton.addEventListener("click", () => {
                     this.submit();
+                    this.correct();
                 })
             }
 
-///GÖRA FILTER OCH skapa en poäng klass, ropa på lilla klassen för att ge poäng
-// quizIndex.correct_answers för att nå ? 
+            ///GÖRA FILTER OCH skapa en poäng klass, ropa på lilla klassen för att ge poäng
+            // quizIndex.correct_answers för att nå ? 
 
 
         }
