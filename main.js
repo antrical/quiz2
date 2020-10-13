@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
         let name = document.getElementById('name');
         name2 = name.value;
-        div.append(name2 + " spelar en omgång!");
+        div.append(name2 + " spelar en omgång! ");
 
 
 
@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
             .then(data => {
                 let quizIndex = new quizQuestion(data); // nytt objekt
                 quizIndex.printQuestion() // lägga in i egen funktion 
-                //quizIndex.submit()
                 quizIndex.correct()
 
             });
@@ -119,25 +118,12 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 }
 
 
-                ////////TO DO
-                // Checka min lista inputArray mot correct_anss - rättning 
-                //map funktion?
-                //starta nytt spel
-
-                //nedan körs för att få fram correct_answers --> facit 
+                //Gör om objekt till array med facit svar
 
                 for (let i = 0; i < this.inputArray.length; i++) {
                     this.correct_ans.push((Object.values(this.questionObjects[i].correct_answers)))
 
                 }
-
-                /*  for(let i =0; i< inputArray.lenght; i++) {
-                  let array = */  //Försök att skapa en loop som loopar igenom varje svar i min array och köra filter, för att få ut index true
-
-
-                //}
-
-
 
                 console.log(this.inputArray);
 
@@ -145,10 +131,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 
 
-
-
             }
 
+            //För att få ut index plats på true som är en boolean 
 
             correct() {
                 let newInputArray = [];
@@ -168,6 +153,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
                     )
 
+                    //För att få ut index plats på "true" som är en boolean 
 
                 }
                 let newCorrect_ans = []
@@ -185,30 +171,24 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     }
 
                     )
-                    if(newInputArray[i] === newCorrect_ans[i]) {
+                    if (newInputArray[i] === newCorrect_ans[i]) {
                         this.player.addPoint()
 
+                    }
+
+
+
                 }
 
-                
-
-                }
-                
                 console.log(this.player);
                 console.log(newInputArray);
                 console.log(newCorrect_ans);
-                
 
             }
 
 
 
-
-
-
-
-
-            // DENNA METOD KÖRS DIREKT NÄR CONSTRUCTORN KÖRS SÅ ATT
+            // DENNA METOD KÖRS DIREKT NÄR CONSTRUCTORN KÖRS 
             // KNAPPEN FÅR EN EVENTLYSSNARE DIREKT
 
             submitButton() {
@@ -216,11 +196,13 @@ document.addEventListener("DOMContentLoaded", function (e) {
                 submitButton.addEventListener("click", () => {
                     this.submit();
                     this.correct();
+                    let score = document.createElement("p");
+                    score.innerHTML = "Din poäng blev: " + this.player.points + "." + " Vill du spela en ny omgång?";
+                    div.append(score);
+                    console.log(this.player.points)
+
                 })
             }
-
-            ///GÖRA FILTER OCH skapa en poäng klass, ropa på lilla klassen för att ge poäng
-            // quizIndex.correct_answers för att nå ? 
 
 
         }
@@ -231,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 
 
-    );// end of DOM event
+    );
 
 
 
