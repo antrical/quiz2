@@ -1,12 +1,11 @@
 
 button:hover {
-  background: rgb(88, 175, 145);
+  background: #72c1ae;
   text-align: center;
-  padding: 7px 15px
+  padding: 7px 10x
 }
 
 
-
 body {
-    background-color: rgb(161, 211, 208);
+    background-color: #b7ded5;
   }

@@ -1,3 +1,4 @@
+//Klass för antal poäng och metod för att öka poängen.
 class Points {
     constructor() { 
       
@@ -8,5 +9,5 @@ class Points {
         this.points ++
        
     }
-  
-}
+    
+    }
