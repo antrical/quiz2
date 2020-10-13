@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (e) {
 
-    document.getElementById("btn").addEventListener("click", function () {
+    document.getElementById("btn").addEventListener("click", () => {
 
         let name = document.getElementById('name');
         name2 = name.value;
@@ -22,10 +22,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
         class quizQuestion {
             constructor(data) {
                 this.questionObjects = data; //Hela questonojketet i en lista // här hämtar jag all data som jag behöver 
-                this.correct_ans = [];
-                this.inputArray = [];
-                this.player = new Player()
-                // this.filterMyArr();
+                this.inputArray = []; //tom array som kommer innehålla 10 st array med true,false från spelarens icheckade checkbox
+                this.correct_ans = []; // tom array som kommer innehålla facit till quiz
+                this.points = new Points() // 
                 this.submitButton(); // För att sbmbutton metoden ska var aktiv så fort konstruktorn körs
 
                 console.log("this.questionObjects");
@@ -92,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             submit() { // Loopar igenom checkbox-elementen och pushar dem till currentQuestionArr 
                 console.log("submitbutton klick!!");
                 let currentQuestionArr = []; //min stora array som tar in true, false 
-                // let inputArray = []; //Skapar arrayen som ska innehålla 10 array
+               
                 // let correct_ans = [];
                 let inputAnswer = document.querySelectorAll('input[type="checkbox"]'); //LISTA
                 for (let i = 0; i < inputAnswer.length; i++) {
@@ -133,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
             }
 
-            //För att få ut index plats på true som är en boolean 
+            //För att få ut index plats på true på spelarens icheckade svar som är en boolean i en array
 
             correct() {
                 let newInputArray = [];
@@ -153,7 +152,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
                     )
 
-                    //För att få ut index plats på "true" som är en boolean 
+                    //För att få ut index plats på "true" i facit som är en sträng i en array
 
                 }
                 let newCorrect_ans = []
@@ -171,8 +170,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     }
 
                     )
+                    //För att matcha mina index array och skapar ett objekt av min lilla player.addPoint class
                     if (newInputArray[i] === newCorrect_ans[i]) {
-                        this.player.addPoint()
+                        this.points.addPoint()
 
                     }
 
@@ -180,26 +180,27 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
                 }
 
-                console.log(this.player);
+                console.log(this.points);
                 console.log(newInputArray);
                 console.log(newCorrect_ans);
 
             }
 
 
-
-            // DENNA METOD KÖRS DIREKT NÄR CONSTRUCTORN KÖRS 
-            // KNAPPEN FÅR EN EVENTLYSSNARE DIREKT
-
+            // Knappen har fått en eventlyssnare, metoden körs direkt när constructorn körs
             submitButton() {
                 let submitButton = document.getElementById("submit");
                 submitButton.addEventListener("click", () => {
                     this.submit();
                     this.correct();
                     let score = document.createElement("p");
-                    score.innerHTML = "Din poäng blev: " + this.player.points + "." + " Vill du spela en ny omgång?";
+                    score.innerHTML = "Din poäng blev: " + this.points.points + "." + " Vill du spela en ny omgång? "   ;
                     div.append(score);
-                    console.log(this.player.points)
+                    console.log(this.points.points)
+                    let newGame = document.getElementById("btnNewGame")
+                    newGame.addEventListener("click", () => {
+                        location.reload();
+                    }) 
 
                 })
             }
