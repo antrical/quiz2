@@ -1,7 +1,7 @@
 //Klass för antal poäng och metod för att öka poängen.
 class Points {
-    constructor() {
-
+    constructor(name) {
+        this.name = name;
         this.points = 0;
 
     }
