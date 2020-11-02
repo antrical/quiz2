@@ -6,8 +6,6 @@ class QuizQuestion {
         this.points = new Points() 
         this.submitButton(); // För att sbmbutton metoden ska var aktiv så fort konstruktorn körs
         this.printName(name);
-     /*    console.log("this.questionObjects");
-        console.log(this.questionObjects); */
         ;
 
     }
@@ -20,28 +18,20 @@ class QuizQuestion {
 
     printQuestion() {
         for (let i = 0; i < this.questionObjects.length; i++) {  // loopar igenom antalet frågor i question objects listan i class quizQuestion
-            let questionObject = this.questionObjects[i] // 
-            //console.log("--------------------- ");
-            // console.log(questionObject);
+            let questionObject = this.questionObjects[i] 
+           
             let P = document.createElement('p')
             P.append(questionObject.question)
 
-            // console.log(question)
+            
             document.getElementById("div").append(P)
 
-            // let answers = this.answer_arr[i];
-            //console.log(answers);//här får jag mina svar under frågan 
-
-
-            // console.log("Question: " + questionObject.question)
+           
             for (const answer in questionObject.answers) { //answer = key
                 let xNull = questionObject.answers[answer];
                 if (xNull !== null) {
 
-
-                    // (questionObject.answers.hasOwnProperty(answer))
                     const answerValue = questionObject.answers[answer];
-                    // console.log("answer: " + answerValue);
                     let tr = document.createElement('tr');
 
                     div.append(tr)
@@ -52,13 +42,9 @@ class QuizQuestion {
                     tr.append(checkB)
                     tr.append(answerValue)
 
-                    //let questionId = answer;
-                    //console.log(questionId);
 
                     checkB.id = answer; // sätter id för att kunna sortera mina checkboxes
-                    //checkB.value = answer;
 
-                    //console.log(inputArray);
 
                 }
 
@@ -73,11 +59,10 @@ class QuizQuestion {
 
 
     submit() { // Loopar igenom checkbox-elementen och pushar dem till currentQuestionArr 
-        console.log("submitbutton klick!!");
         let currentQuestionArr = []; //min stora array som tar in true, false 
         let inputAnswer = document.querySelectorAll('input[type="checkbox"]'); //LISTA
         for (let i = 0; i < inputAnswer.length; i++) {
-            if (i == inputAnswer.length - 1) { // problemet innan fick endast 9 array av 10 (ful lösning)
+            if (i == inputAnswer.length - 1) { // problemet innan fick endast 9 array av 10 
                 currentQuestionArr.push(inputAnswer[i].checked)
                 this.inputArray.push(currentQuestionArr)
             }
@@ -106,12 +91,6 @@ class QuizQuestion {
 
         }
 
-        console.log(this.inputArray);
-
-        console.log(this.correct_ans);
-
-
-
     }
 
     //För att få ut index plats på true på spelarens icheckade svar som är en boolean i en array
@@ -122,14 +101,12 @@ class QuizQuestion {
         for (let i = 0; i < this.inputArray.length; i++) {
 
             this.inputArray[i].filter((curr_value, index) => {
-                //console.log(curr_value);
 
                 if (curr_value === true) {
                     newInputArray.push(index);
 
                 }
-                else
-                    console.log("hej");
+             
             }
 
             )
@@ -147,8 +124,7 @@ class QuizQuestion {
                     newCorrect_ans.push(index);
 
                 }
-                else
-                    console.log("hejdå");
+           
             }
 
             )
@@ -162,9 +138,6 @@ class QuizQuestion {
 
         }
 
-        console.log(this.points);
-        console.log(newInputArray);
-        console.log(newCorrect_ans);
 
     }
 
@@ -178,7 +151,6 @@ class QuizQuestion {
             let score = document.createElement("p");
             score.innerHTML = "Din poäng blev: " + this.points.points + "." + " Inte nöjd? Starta ett nytt spel! ";
             div.append(score);
-            console.log(this.points.points)
             let newGame = document.getElementById("btnNewGame")
             newGame.addEventListener("click", () => {
                 location.reload();
