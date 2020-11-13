@@ -5,6 +5,14 @@ button:hover {
   padding: 7px 10x
 }
 
+.div-wrapper {
+  background-color:floralwhite;
+  color:  #72c1ae;
+  border-radius: 10px;
+  padding: 50px;
+  margin: 20px;
+  max-width: 30%;
+}
 
 body {
     background-color: #b7ded5;

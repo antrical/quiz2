@@ -3,14 +3,14 @@ class QuizQuestion {
         this.questionObjects = data; //Hela questionobjektet i en lista // här hämtar jag all data som jag behöver 
         this.inputArray = []; //tom array som kommer innehålla 10 st array med true,false från spelarens icheckade checkbox
         this.correct_ans = []; // tom array som kommer innehålla facit till quiz
-        this.points = new Points() 
+        this.points = new Points()
         this.submitButton(); // För att sbmbutton metoden ska var aktiv så fort konstruktorn körs
         this.printName(name);
         ;
 
     }
 
-    printName(name){
+    printName(name) {
         div.append(name + " spelar en omgång! ");
 
     }
@@ -18,15 +18,15 @@ class QuizQuestion {
 
     printQuestion() {
         for (let i = 0; i < this.questionObjects.length; i++) {  // loopar igenom antalet frågor i question objects listan i class quizQuestion
-            let questionObject = this.questionObjects[i] 
-           
+            let questionObject = this.questionObjects[i]
+
             let P = document.createElement('p')
             P.append(questionObject.question)
 
-            
+
             document.getElementById("div").append(P)
 
-           
+
             for (const answer in questionObject.answers) { //answer = key
                 let xNull = questionObject.answers[answer];
                 if (xNull !== null) {
@@ -106,7 +106,7 @@ class QuizQuestion {
                     newInputArray.push(index);
 
                 }
-             
+
             }
 
             )
@@ -124,7 +124,7 @@ class QuizQuestion {
                     newCorrect_ans.push(index);
 
                 }
-           
+
             }
 
             )
